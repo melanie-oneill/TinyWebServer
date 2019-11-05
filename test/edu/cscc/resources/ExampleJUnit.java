@@ -1,6 +1,12 @@
-import static org.junit.jupiter.api.Assertions.assertEquals;
+/**
+ * From https://www.vogella.com/tutorials/JUnit/article.html
+ */
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.Test;
+
+//Import your files to test here:
+//import <project>
 
 public class MyTests {
 
