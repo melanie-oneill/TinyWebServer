@@ -1,5 +1,5 @@
-import edu.cscc.Config;
-import edu.cscc.TinyWS;
+package edu.cscc;
+
 import org.junit.Test;
 import org.junit.Before;
 
