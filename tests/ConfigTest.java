@@ -1,9 +1,8 @@
 import edu.cscc.Config;
+import edu.cscc.TinyWS;
 import org.junit.Test;
 import org.junit.Before;
 
-import org.junit.Assert;
-import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
@@ -23,7 +22,7 @@ public class ConfigTest {
     public void init() {
 
         try {
-            InputStream input = new FileInputStream("TinyWS.xml");
+            InputStream input = new FileInputStream("TinyWebServer/resources/TinyWS.xml");
             properties.loadFromXML(input);
         }
         catch (IOException e) {
@@ -34,28 +33,28 @@ public class ConfigTest {
 
     @Test
     public void readProperties() {
-        Config config = new Config();
         try {
+            Config config = new Config();
             config.readProperties();
+            assertEquals(config.getProperties(),properties);
         }
         catch (IOException e) {
             System.out.println("There was an issue reading the properties");
             e.printStackTrace();
         }
-        assertEquals(config.getProperties(),properties);
     }
 
     @Test
     public void getProperty() {
-        Config config = new Config();
         try {
+            Config config = new Config();
             config.readProperties();
+            assertEquals(config.getProperty("port"),properties.getProperty("port"));
+            assertEquals(config.getProperty("defaultFolder"),properties.getProperty("defaultFolder"));
+            assertEquals(config.getProperty("defaultPage"),properties.getProperty("defaultPage"));
         } catch (IOException e) {
             System.out.println("There was an issue reading the config properties file.");
             e.printStackTrace();
         }
-        assertEquals(config.getProperty("port"),properties.getProperty("port"));
-        assertEquals(config.getProperty("defaultFolder"),properties.getProperty("defaultFolder"));
-        assertEquals(config.getProperty("defaultPage"),properties.getProperty("defaultPage"));
     }
 }

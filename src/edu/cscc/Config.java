@@ -16,15 +16,16 @@ public class Config {
     public static final String DEFAULTPAGE = "defaultPage";
     public static final String DEFAULTFOLDER = "defaultFolder";
 
-    private static final String CONFIG_FILE = "../tests/TinyWS.xml";
-    private static Properties properties;
+    private static final String CONFIG_FILE = "TinyWebServer/resources/TinyWS.xml";
+    private static Properties properties = new Properties();
 
 
     /**
      * @description: This constructor instantiates the Config class.
      */
-    public Config() {
-        properties = this.getProperties();
+    public Config() throws IOException {
+        readProperties();
+
     }
 
     /**
@@ -35,6 +36,7 @@ public class Config {
     public void readProperties() throws IOException {
         InputStream input = new FileInputStream(CONFIG_FILE);
         properties.loadFromXML(input);
+        input.close();
     }
 
     /**
