@@ -1,39 +1,29 @@
 package edu.cscc;
 
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.Properties;
 
 /**
  * Process webserver configuration
- * @author Chrsitin Goff, Robert Linse, Melanie O'Neill
+ * @author Melanie O'Neill, Christin Goff, Robert Linse
  */
 public class Config {
-    public static final String PORT = 80;
-    public static final String DEFAULTPAGE = "html/index.html";
-    public static final String DEFAULTFOLDER = "html/";
+    public static final String PORT = "port";
+    public static final String DEFAULTPAGE = "defaultPage";
+    public static final String DEFAULTFOLDER = "defaultFolder";
 
-    private static final String CONFIG_FILE = "resources/TinyWS.xml";
+    private static final String CONFIG_FILE = "./TinyWS.xml";
     private static Properties properties;
 
+
     public Config() {
-        // TODO code here
-        // This is your constructor
-        this.PORT = PORT;
-        this.DEFAULTFOLDER = DEFAULTPAGE;
-        this.DEFAULTPAGE = DEFAULTPAGE;
-        this.CONFIG_FILE = CONFIG_FILE;
-        this.properties = properties;
     }
 
     public void readProperties() throws IOException {
-        try {
-            File file = new File CONFIG_FILE;
-            FileInputStream fileInput = new FileInputStream(file);
-
-
-        }catch (FileNotFoundException e){
-            e.printStackTrace{};
-        }
+        InputStream input = new FileInputStream(CONFIG_FILE);
+        properties.loadFromXML(input);
     }
 
     public String getProperty(String key) {
@@ -41,6 +31,11 @@ public class Config {
     }
 
     public void dumpProperties() {
-        // TODO code here
+        System.out.println(properties.toString());
+
+    }
+
+    public Properties getProperties(){
+        return properties;
     }
 }
