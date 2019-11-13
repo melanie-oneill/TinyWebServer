@@ -8,33 +8,57 @@ import java.util.Properties;
 /**
  * Process webserver configuration
  * @author Melanie O'Neill, Christin Goff, Robert Linse
+ * @date November 2019
+ *
  */
 public class Config {
     public static final String PORT = "port";
     public static final String DEFAULTPAGE = "defaultPage";
     public static final String DEFAULTFOLDER = "defaultFolder";
 
-    private static final String CONFIG_FILE = "./TinyWS.xml";
+    private static final String CONFIG_FILE = "../tests/TinyWS.xml";
     private static Properties properties;
 
 
+    /**
+     * @description: This constructor instantiates the Config class.
+     */
     public Config() {
+        properties = this.getProperties();
     }
 
+    /**
+     * @description: This method reads the configuration file.
+     * @throws IOException
+     * @returns void
+     */
     public void readProperties() throws IOException {
         InputStream input = new FileInputStream(CONFIG_FILE);
         properties.loadFromXML(input);
     }
 
+    /**
+     * @description: This method returns the individual property when
+     * given a key value.
+     * @param key
+     * @return String
+     */
     public String getProperty(String key) {
         return properties.getProperty(key);
     }
 
+    /**
+     * @description: This method outputs the properties into the console.
+     * @return void
+     */
     public void dumpProperties() {
         System.out.println(properties.toString());
-
     }
 
+    /**
+     * @description: This method returns the properties of the config file.
+     * @return Properties
+     */
     public Properties getProperties(){
         return properties;
     }

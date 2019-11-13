@@ -3,7 +3,7 @@
 <properties>
     <comment>Tiny Web Server Configuration</comment>
     <entry key="port">80</entry>
-    <entry key="defaultFolder">./html</entry>
+    <entry key="defaultFolder">../html</entry>
     <entry key="defaultPage">index.html</entry>
 </properties>
 

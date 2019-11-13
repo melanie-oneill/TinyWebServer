@@ -2,7 +2,8 @@ import edu.cscc.Config;
 import org.junit.Test;
 import org.junit.Before;
 
-import org.junit.Assert.*;
+import org.junit.Assert;
+import org.junit.Test;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -10,6 +11,7 @@ import java.io.InputStream;
 import java.util.Properties;
 
 @RunWith(JUnit4.class)
+
 public class ConfigTest {
     private static Properties properties = new Properties();
 
@@ -28,7 +30,13 @@ public class ConfigTest {
     @Test
     public void readProperties() {
         Config config = new Config();
-        config.readProperties();
+        try {
+            config.readProperties();
+        }
+        catch (IOException e) {
+            System.out.println("There was an issue reading the properties");
+            e.printStackTrace();
+        }
         assertEquals(config.getProperties(),properties);
     }
 
