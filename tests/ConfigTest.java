@@ -1,19 +1,28 @@
-package edu.cscc;
-
+import edu.cscc.Config;
 import org.junit.Test;
 import org.junit.Before;
 
+import org.junit.Assert.*;
 
-import static org.junit.Assert.*;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Properties;
 
 @RunWith(JUnit4.class)
 public class ConfigTest {
-    private Properties properties = new Propeties();
+    private static Properties properties = new Properties();
 
     @Before
-    public void init(){
+    public void init() throws IOException {
         InputStream input = new FileInputStream("TinyWS.xml");
-        properties.loadFromXML(input);
+        try {
+            properties.loadFromXML(input);
+        }
+        catch (IOException e) {
+            System.out.println("There was an issue with Loading the XML");
+            e.printStackTrace();
+        }
     }
 
     @Test
