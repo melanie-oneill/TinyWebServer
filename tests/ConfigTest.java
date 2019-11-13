@@ -14,7 +14,7 @@ public class ConfigTest {
     private static Properties properties = new Properties();
 
     @Before
-    public void init() throws IOException {
+    public void init() {
         InputStream input = new FileInputStream("TinyWS.xml");
         try {
             properties.loadFromXML(input);
@@ -35,7 +35,12 @@ public class ConfigTest {
     @Test
     public void getProperty() {
         Config config = new Config();
-        config.readProperties();
+        try {
+            config.readProperties();
+        } catch (IOException e) {
+            System.out.println("There was an issue reading the config properties file.");
+            e.printStackTrace();
+        }
         assertEquals(config.getProperty("port"),properties.getProperty("port"));
         assertEquals(config.getProperty("defaultFolder"),properties.getProperty("defaultFolder"));
         assertEquals(config.getProperty("defaultPage"),properties.getProperty("defaultPage"));
