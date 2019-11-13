@@ -6,8 +6,7 @@ package edu.cscc;
  */
 public class TinyWS {
 
-    //changed port from int to string to make constructor work
-    private static String port;
+    private static int port;
     private static String defaultFolder;
     private static String defaultPage;
     private static Config config;
@@ -18,7 +17,7 @@ public class TinyWS {
     }
 
     public TinyWS() {
-        port = config.getProperty(port);
+        port = Integer.parseInt(config.getProperty("port"));
         defaultFolder = config.getProperty(defaultFolder);
         defaultPage = config.getProperty(defaultPage);
     }
