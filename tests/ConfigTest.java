@@ -4,11 +4,15 @@ import org.junit.Before;
 
 import org.junit.Assert;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.JUnit4;
 
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
+
+import static junit.framework.TestCase.assertEquals;
 
 @RunWith(JUnit4.class)
 
@@ -17,8 +21,9 @@ public class ConfigTest {
 
     @Before
     public void init() {
-        InputStream input = new FileInputStream("TinyWS.xml");
+
         try {
+            InputStream input = new FileInputStream("TinyWS.xml");
             properties.loadFromXML(input);
         }
         catch (IOException e) {
