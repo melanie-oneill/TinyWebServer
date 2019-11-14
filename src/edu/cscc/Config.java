@@ -29,7 +29,6 @@ public class Config {
     public Config() {
         readProperties();
         dumpProperties();
-
     }
 
     /**

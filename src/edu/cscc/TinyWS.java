@@ -22,9 +22,9 @@ public class TinyWS {
     }
 
     public TinyWS() {
-        port = Integer.parseInt(config.getProperty("port"));
-        defaultFolder = config.getProperty(defaultFolder);
-        defaultPage = config.getProperty(defaultPage);
+            port = Integer.parseInt(config.getProperty("port"));
+            defaultFolder = config.getProperty(defaultFolder);
+            defaultPage = config.getProperty(defaultPage);
     }
 
     public void listen() {
