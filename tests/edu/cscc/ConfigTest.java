@@ -1,5 +1,6 @@
 package edu.cscc;
 
+import org.junit.After;
 import org.junit.Test;
 import org.junit.Before;
 
@@ -19,42 +20,27 @@ public class ConfigTest {
     private static Properties properties = new Properties();
 
     @Before
-    public void init() {
-
-        try {
-            InputStream input = new FileInputStream("TinyWebServer/resources/TinyWS.xml");
-            properties.loadFromXML(input);
-        }
-        catch (IOException e) {
-            System.out.println("There was an issue with Loading the XML");
-            e.printStackTrace();
-        }
+    public void setUp() {
+            try {
+                InputStream input = new FileInputStream("TinyWebServer/resources/TinyWS.xml");
+                properties.loadFromXML(input);
+            }
+            catch (Exception e) {
+                System.out.println("Something went wrong in the initialization of properties");
+            }
     }
-
     @Test
     public void readProperties() {
-        try {
             Config config = new Config();
             config.readProperties();
             assertEquals(config.getProperties(),properties);
-        }
-        catch (IOException e) {
-            System.out.println("There was an issue reading the properties");
-            e.printStackTrace();
-        }
     }
-
     @Test
     public void getProperty() {
-        try {
             Config config = new Config();
             config.readProperties();
             assertEquals(config.getProperty("port"),properties.getProperty("port"));
             assertEquals(config.getProperty("defaultFolder"),properties.getProperty("defaultFolder"));
             assertEquals(config.getProperty("defaultPage"),properties.getProperty("defaultPage"));
-        } catch (IOException e) {
-            System.out.println("There was an issue reading the config properties file.");
-            e.printStackTrace();
-        }
     }
 }

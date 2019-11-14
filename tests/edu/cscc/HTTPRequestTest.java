@@ -12,15 +12,27 @@ public class HTTPRequestTest {
     public void setUp() throws Exception {
     }
 
-    @After
-    public void tearDown() throws Exception {
-    }
-
     @Test
     public void isValidRequest() {
     }
 
     @Test
     public void getPath() {
+    }
+
+    @After
+    public void tearDown() throws Exception {
+    }
+
+    @Test
+    public void isValidRequest1() {
+    }
+
+    @Test
+    public void getPath1() {
+    }
+
+    @Test
+    public void getParsedRequest() {
     }
 }

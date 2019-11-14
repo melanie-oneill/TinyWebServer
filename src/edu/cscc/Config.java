@@ -1,8 +1,11 @@
 package edu.cscc;
 
+import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils;
+
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.InvalidPropertiesFormatException;
 import java.util.Properties;
 
 /**
@@ -23,8 +26,9 @@ public class Config {
     /**
      * @description: This constructor instantiates the Config class.
      */
-    public Config() throws IOException {
+    public Config() {
         readProperties();
+        dumpProperties();
 
     }
 
@@ -33,10 +37,18 @@ public class Config {
      * @throws IOException
      * @returns void
      */
-    public void readProperties() throws IOException {
-        InputStream input = new FileInputStream(CONFIG_FILE);
-        properties.loadFromXML(input);
-        input.close();
+    public void readProperties() {
+        try {
+            InputStream input = new FileInputStream(CONFIG_FILE);
+            properties.loadFromXML(input);
+            input.close();
+        }
+        catch (IOException i) {
+            System.out.println("The Input Stream failed.");
+        }
+        catch (Exception e) {
+            System.out.println("The loadFromXML function failed.");
+        }
     }
 
     /**

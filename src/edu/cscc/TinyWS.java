@@ -9,11 +9,16 @@ public class TinyWS {
     private static int port;
     private static String defaultFolder;
     private static String defaultPage;
-    private static Config config;
+    private static Config config = new Config();
 
     public static void main(String[] args) {
-        TinyWS webServer = new TinyWS();
-        webServer.listen();
+        try {
+            TinyWS webServer = new TinyWS();
+            webServer.listen();
+        }
+        catch (Exception e){
+            System.out.println("Something broke");
+        }
     }
 
     public TinyWS() {
