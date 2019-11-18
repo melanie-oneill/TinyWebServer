@@ -1,5 +1,9 @@
 package edu.cscc;
 
+import java.io.IOException;
+import java.net.ServerSocket;
+import java.net.Socket;
+
 /**
  * TinyWS a simplistic Tiny Web Server
  * @author student name here
@@ -10,6 +14,7 @@ public class TinyWS {
     private static String defaultFolder;
     private static String defaultPage;
     private static Config config = new Config();
+    private static boolean systemRunning = true;
 
     public static void main(String[] args) {
         try {
@@ -25,10 +30,17 @@ public class TinyWS {
             port = Integer.parseInt(config.getProperty("port"));
             defaultFolder = config.getProperty(defaultFolder);
             defaultPage = config.getProperty(defaultPage);
+            systemRunning = this.systemRunning;
     }
 
-    public void listen() {
+    public void listen() throws IOException {
        // TODO add code here
+        ServerSocket serverSocket = new ServerSocket(getPort());
+        serverSocket.setSoTimeout(0);
+        do {
+            Socket s = serverSocket.accept();
+            s.getInetAddress().getCanonicalHostName();
+        } while(systemRunning);
     }
 
     /**
