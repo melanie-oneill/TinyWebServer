@@ -44,9 +44,13 @@ public class Config {
         }
         catch (IOException i) {
             System.out.println("The Input Stream failed.");
+            i.printStackTrace();
+            System.out.println(i);
         }
         catch (Exception e) {
             System.out.println("The loadFromXML function failed.");
+            e.printStackTrace();
+            System.out.println(e);
         }
     }
 
