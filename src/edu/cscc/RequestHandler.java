@@ -18,8 +18,16 @@ public class RequestHandler {
     }
 
     public void processRequest() throws IOException {
-        String req = readRequest();
-        System.out.println("Got the request: " + req);
+        try {
+            String req = readRequest();
+            System.out.println("Got the request: " + req);
+            HTTPRequest httpRequest = new HTTPRequest(req);
+            ResponseHandler responseHandler = new ResponseHandler(httpRequest);
+            responseHandler.sendResponse(connection);
+        }
+        finally {
+            connection.close();
+        }
     }
 
     private String readRequest() throws IOException {
@@ -37,7 +45,7 @@ public class RequestHandler {
 
         while ((line = bufferedReader.readLine()) != null)
         {
-            System.out.println("Testing reader");
+            System.out.println("Testing reader"); //delete this
             content.append(line);
         }
         bufferedReader.close();
