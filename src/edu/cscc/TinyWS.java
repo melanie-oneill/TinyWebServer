@@ -19,27 +19,35 @@ public class TinyWS {
     public static void main(String[] args) {
         try {
             TinyWS webServer = new TinyWS();
+            System.out.println("Server is listening on http://localhost:"+port);
             webServer.listen();
         }
+        catch (IOException ioe){
+            System.out.println("Something broke in the socket creation.");
+            fatalError(ioe);
+        }
         catch (Exception e){
-            System.out.println("Something broke");
+            System.out.println("Something broke.");
+            fatalError(e);
         }
     }
 
     public TinyWS() {
             port = Integer.parseInt(config.getProperty("port"));
-            defaultFolder = config.getProperty(defaultFolder);
-            defaultPage = config.getProperty(defaultPage);
+            defaultFolder = config.getProperty("defaultFolder");
+            defaultPage = config.getProperty("defaultPage");
             systemRunning = this.systemRunning;
     }
 
     public void listen() throws IOException {
-       // TODO add code here
         ServerSocket serverSocket = new ServerSocket(getPort());
         serverSocket.setSoTimeout(0);
         do {
             Socket s = serverSocket.accept();
-            s.getInetAddress().getCanonicalHostName();
+            log(s.getInetAddress().getCanonicalHostName());
+            RequestHandler requestHandler = new RequestHandler(s);
+            requestHandler.processRequest();
+            s.close();
         } while(systemRunning);
     }
 
