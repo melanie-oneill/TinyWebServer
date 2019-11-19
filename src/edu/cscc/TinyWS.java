@@ -43,11 +43,14 @@ public class TinyWS {
         ServerSocket serverSocket = new ServerSocket(getPort());
         serverSocket.setSoTimeout(0);
         do {
-            Socket s = serverSocket.accept();
-            log(s.getInetAddress().getCanonicalHostName());
-            RequestHandler requestHandler = new RequestHandler(s);
-            requestHandler.processRequest();
-            s.close();
+            try {
+                Socket s = serverSocket.accept();
+                log(s.getInetAddress().getCanonicalHostName());
+                RequestHandler requestHandler = new RequestHandler(s);
+                requestHandler.processRequest();
+                s.close();
+            }
+            catch (Exception e) {System.out.println("Socket closed.");}
         } while(systemRunning);
     }
 
