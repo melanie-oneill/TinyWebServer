@@ -35,7 +35,7 @@ public class RequestHandler {
         // Set socket timeout to 500 milliseconds
 
         //Bobby Notes: had to set Socket Timeout to 0 to bypass issues
-//        connection.setSoTimeout(0);
+//      connection.setSoTimeout(0);
         connection.setSoTimeout(5000);
         int recBufSize = connection.getReceiveBufferSize();
         InputStream in = connection.getInputStream();
@@ -46,7 +46,6 @@ public class RequestHandler {
         try {
 //            while ((bufferedReader.ready()) && ((line = bufferedReader.readLine()) != null)) {
               while ((line = bufferedReader.readLine()) != null) {
-                System.out.println("Testing reader"); //delete this
                 content.append(line);
             }
         } finally {

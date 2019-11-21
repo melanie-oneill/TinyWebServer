@@ -1,7 +1,11 @@
 package edu.cscc;
 
+import javax.activation.MimeType;
 import java.io.*;
 import java.net.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.Arrays;
 
 public class ResponseHandler {
     private static final String NOT_FOUND_RESPONSE =
@@ -23,10 +27,13 @@ public class ResponseHandler {
 
     private HTTPRequest request;
     private int responseCode;
+    private Config config = new Config();
+    String folder = config.getProperty("defaultFolder");
 
     public ResponseHandler(HTTPRequest request) {
         this.request = request;
         responseCode = 404;
+
     }
 
     /**
@@ -42,25 +49,48 @@ public class ResponseHandler {
 
     // Find requested file, assume Document Root is in html folder in project directory
     private byte[] getFile(String path) {
-       // TODO code here
-
-        // TODO delete next statement
+        if (path != null) {
+            if (path.contains("..")){
+                responseCode = 403;
+            }
+            else if (path.contains("/")){
+                path = path.concat("/"+folder);
+            }
+            else if ((!path.contains("/")) || (!path.contains(".."))) {
+                path = folder.concat("/" + path);
+            }
+            //TODO: Check the garbage above ^
+            //Check to see if path is a file or a directory
+        }
+       // TODO delete next statement
         return(null);
     }
 
     // Read file, return byte array (null if error)
     private byte[] readFile(File f) {
-        // TODO code here
+        FileInputStream fis = null;
 
-        // TODO delete next statement
-        return(null);
+        byte[] bArray = new byte[(int) f.length()];
+        try{
+            fis = new FileInputStream(f);
+            fis.read(bArray);
+            fis.close();
+        } catch(IOException e){
+            System.out.println("Issue reading file as byte[].");
+            e.printStackTrace();
+        }
+        return bArray;
     }
 
     // Return mimetype based on file suffix (or null if error)
     private String getMimeType(String path) {
         String mimeType = null;
+        File f = new File(path);
+        mimeType = URLConnection.guessContentTypeFromName(f.getName());
 
-        // TODO code here
+        System.out.println("File type: "+path);
+        System.out.println("Mime type: "+mimeType);
+
 
         return mimeType;
     }
