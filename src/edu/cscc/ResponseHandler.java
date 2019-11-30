@@ -49,22 +49,33 @@ public class ResponseHandler {
 
     // Find requested file, assume Document Root is in html folder in project directory
     private byte[] getFile(String path) {
+        System.out.println("Path: " + path);
+
         if (path != null) {
-            if (path.contains("..")){
+            if (path.contains("..")) {
                 responseCode = 403;
+                System.out.println("\nResults from getFile-- \nPath: "+path+" \nRes Code: "+responseCode);
             }
-            else if (path.contains("/")){
-                path = path.concat("/"+folder);
+            else if (path.contains("/")) {
+                path = path.concat("/" + folder);
+                File f = new File(path);
+                responseCode = 200;
+                System.out.println("\nResults from getFile-- \nPath: "+path+" \nRes Code: "+responseCode);
+                return (readFile(f));
             }
             else if ((!path.contains("/")) || (!path.contains(".."))) {
                 path = folder.concat("/" + path);
+                File f = new File(path);
+                responseCode = 200;
+                System.out.println("\nResults from getFile-- \nPath: "+path+" \nRes Code: "+responseCode);
+                return (readFile(f));
             }
-            //TODO: Check the garbage above ^
-            //Check to see if path is a file or a directory
         }
-       // TODO delete next statement
-        return(null);
+            responseCode = 400;
+            System.out.println("ERROR: Skipped all getFile cases. Exiting");
+            return null;
     }
+
 
     // Read file, return byte array (null if error)
     private byte[] readFile(File f) {

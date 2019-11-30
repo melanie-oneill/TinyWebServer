@@ -1,6 +1,7 @@
 package edu.cscc;
 
 import java.io.File;
+import java.util.Arrays;
 
 
 /**
@@ -11,7 +12,7 @@ public class HTTPRequest {
     private String request;
     private String path;
     private boolean validRequest;
-    private static final String REG_EX_DELIMINATERS = "[\t\n?]";
+    private static final String REG_EX_DELIMINATERS = "[ ]+";
 
     /**
      * @desctiption This constructor takes in a request stream, parses
@@ -49,10 +50,13 @@ public class HTTPRequest {
     private boolean parse(String request) {
        String[] stringParts = getParsedRequest(request, REG_EX_DELIMINATERS);
 
+       System.out.println("\nString Parts from parse(). \n path = "
+                       +stringParts[1] +" \n");
+
        path = stringParts[1];
        File file = new File(path);
 
-       if(stringParts.length >= 2 && stringParts[0] == "GET" && file.exists()){
+       if(stringParts.length >= 2 && stringParts[0].equals("GET") && file.exists()){
            System.out.println("Received GET and file exists");
            validRequest = true;
            return validRequest;
@@ -67,7 +71,7 @@ public class HTTPRequest {
            validRequest = false;
            return validRequest;
 
-       } else if(stringParts[0] != "GET"){
+       } else if(!stringParts[0].equals("GET")){
            System.out.println("Request is not a get.");
            validRequest = false;
            return validRequest;
@@ -89,6 +93,14 @@ public class HTTPRequest {
      * @return
      */
     public String[] getParsedRequest(String request, String regExDelimiters) {
+
+        /** -------------For Debugging--------------------------
+         * String[] strParts = request.split(regExDelimiters);
+         * System.out.println("\nString Parts from getParsedRequest(). \n" +
+         * Arrays.toString(strParts) + "\n");
+         * -----------------------------------------------------
+         */
+
         return request.split(regExDelimiters);
     }
 }
